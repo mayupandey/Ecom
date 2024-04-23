@@ -38,30 +38,42 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 9.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.68, crossAxisCount: 2),
-                    // physics: const NeverScrollableScrollPhysics(),
-                    itemCount: favouriteList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final productData = favouriteList[index];
-                      return GestureDetector(
-                          onTap: () {
-                            context.push('/productDetails', extra: productData);
-                          },
-                          child: ProductCard(
-                            productData: productData,
-                          ));
-                    })
-              ],
-            ),
-          ),
+          child: favouriteList.isEmpty
+              ? const Center(
+                  child: ListTile(
+                    title: Text(
+                      'No Favourites',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text('Add some products to your favourites'),
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 0.68, crossAxisCount: 2),
+                          // physics: const NeverScrollableScrollPhysics(),
+                          itemCount: favouriteList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final productData = favouriteList[index];
+                            return GestureDetector(
+                                onTap: () {
+                                  context.push('/productDetails',
+                                      extra: productData);
+                                },
+                                child: ProductCard(
+                                  productData: productData,
+                                ));
+                          })
+                    ],
+                  ),
+                ),
         ),
       ),
     );
