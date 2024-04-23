@@ -1,3 +1,6 @@
+import 'package:hive/hive.dart';
+part 'product_list_modal.g.dart';
+
 class ProductList {
   List<Products>? products;
   int? total;
@@ -30,17 +33,29 @@ class ProductList {
   }
 }
 
+@HiveType(typeId: 0)
 class Products {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? title;
+  @HiveField(2)
   String? description;
+  @HiveField(3)
   int? price;
+  @HiveField(4)
   double? discountPercentage;
+  @HiveField(5)
   double? rating;
+  @HiveField(6)
   int? stock;
+  @HiveField(7)
   String? brand;
+  @HiveField(8)
   String? category;
+  @HiveField(9)
   String? thumbnail;
+  @HiveField(10)
   List<String>? images;
 
   Products(

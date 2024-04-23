@@ -1,6 +1,9 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:ecom/src/feature/favourites/presentation/favourite_screen.dart';
 import 'package:ecom/src/feature/home/presentation/home_screen.dart';
 import 'package:ecom/src/feature/profile/presentation/profile_screen.dart';
+import 'package:ecom/src/utils/device_info.dart';
+import 'package:ecom/src/utils/internetStatusChecker.dart';
 import 'package:flutter/material.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -10,7 +13,8 @@ class NavigationScreen extends StatefulWidget {
   State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> {
+class _NavigationScreenState extends State<NavigationScreen>
+    with AutomaticKeepAliveClientMixin {
   PageController controller = PageController();
   int bottomSelectedIndex = 0;
   void bottomTapped(int index) {
@@ -22,8 +26,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   var pages = {
     '0': const HomeScreen(),
-    '1': const HomeScreen(),
-    '2': const ProfileScreen()
+    '1': const FavouriteScreen(),
+    '2': ProfileScreen()
   };
   void pageChanged(int index) {
     setState(() {
@@ -34,22 +38,26 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bottomBar(),
-      body: PageView(
-        controller: controller,
-        onPageChanged: (index) {
-          pageChanged(index);
-        },
-        children: <Widget>[
-          pages['$bottomSelectedIndex']!,
-        ],
+      extendBodyBehindAppBar: true,
+      floatingActionButton: bottomBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: NetworkAware(
+        PageView(
+          controller: controller,
+          onPageChanged: (index) {
+            pageChanged(index);
+          },
+          children: <Widget>[
+            pages['$bottomSelectedIndex']!,
+          ],
+        ),
       ),
     );
   }
 
   Padding bottomBar() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 4),
+      padding: EdgeInsets.only(bottom: DeviceInfo.responsiveHeight(20)),
       child: CustomNavigationBar(
         iconSize: 30.0,
         isFloating: true,
@@ -65,12 +73,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
             icon: const Icon(Icons.home_outlined),
           ),
           CustomNavigationBarItem(
-            icon: const Icon(Icons.search_outlined),
+            icon: const Icon(Icons.favorite_border_outlined),
           ),
-          // CustomNavigationBarItem(
-          //   icon: Icon(Icons.shopping_bag_outlined),
-          // ),
-
           CustomNavigationBarItem(
             icon: const Icon(Icons.person_outline),
           ),
@@ -85,6 +89,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
     );
   }
 
-  // @override
-  // bool get wantKeepAlive => true;
+  @override
+  bool get wantKeepAlive => true;
 }

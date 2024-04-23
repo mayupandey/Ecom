@@ -14,8 +14,5 @@ class AppStrings {
 
   static const invaildEmail = "Please enter a valid email";
 
-  // ======== Firebase Collections ==============
-  static const userCollection = "Users";
-
   // ==============
 }

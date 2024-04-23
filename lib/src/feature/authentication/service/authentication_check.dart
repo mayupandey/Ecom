@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:ecom/src/feature/authentication/presentation/login_screen.dart';
 import 'package:ecom/src/feature/authentication/presentation/signup_screen.dart';
 import 'package:ecom/src/feature/home/presentation/home_screen.dart';
-import 'package:ecom/src/feature/intro/intro_screen.dart';
 import 'package:ecom/src/feature/navigation/presentation/navigation_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

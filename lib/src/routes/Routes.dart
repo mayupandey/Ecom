@@ -6,4 +6,6 @@ class Routes {
   static const login = 'login';
   static const navigation = 'nav';
   static const signUp = "signUp";
+  static const productDetails = "productDetails";
+  static const passwordReset = "passwordReset";
 }

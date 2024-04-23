@@ -59,11 +59,13 @@ class AuthenticationController extends StateNotifier<AuthenticationState> {
   Future<void> signUpWithEmailAndPassword(
       ValueSetter<Tuple2<bool, String>> onResponse,
       {required String email,
-      required String password}) async {
+      required String password,
+      required String name}) async {
     try {
       final res = await _authenticationRepo.signUpWithEmail(
           email: email, password: password);
       state = AuthenticationState(userCredential: res);
+      await res.user!.updateDisplayName(name);
       onResponse(const Tuple2(true, "Sucessfully logged in"));
     } catch (e) {
       onResponse(Tuple2(false, "Error:${e.toString()}"));
