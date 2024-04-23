@@ -37,21 +37,6 @@ class _UpdateUserInfoFormState extends State<UpdateUserInfoForm> {
                   labelText: 'Username',
                 ),
               ),
-              TextFormField(
-                controller: _emailController
-                  ..text = FirebaseAuth.instance.currentUser!.email!,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  // You can add more email validation here if needed
-                  return null;
-                },
-              ),
               const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: _updateUserInfo,
@@ -70,9 +55,7 @@ class _UpdateUserInfoFormState extends State<UpdateUserInfoForm> {
       try {
         final user = FirebaseAuth.instance.currentUser;
         await user!.updateDisplayName(_usernameController.text.trim());
-        if (_emailController.text.trim() != user.email) {
-          await user.verifyBeforeUpdateEmail(_emailController.text.trim());
-        }
+
         context.pop();
         // Show success message or navigate to success screen
         ScaffoldMessenger.of(context).showSnackBar(
