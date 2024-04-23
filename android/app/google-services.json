@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947488878562",
+    "project_id": "ecom-dcde5",
+    "storage_bucket": "ecom-dcde5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947488878562:android:5fa511fe3a24d373c513bb",
+        "android_client_info": {
+          "package_name": "com.fluttertask.ecom.ecom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD87yyya9cnkzORI4lRttC7MRgd_QhenEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
