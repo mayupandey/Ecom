@@ -29,6 +29,12 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final category = ref.watch(categoryController);
     return Scaffold(
@@ -66,19 +72,18 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
             ),
             child: category.category == null
                 ? const Text("data")
-                : GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.95,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10),
+                : ListView.builder(
                     itemCount: category.category!.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
+                      final data = ref.watch(categoryController);
+                      return InkWell(
                           onTap: () {
+                            ref
+                                    .read(categoryController.notifier)
+                                    .state
+                                    .category !=
+                                ["sdf"];
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -86,19 +91,48 @@ class _CategoryScreenState extends ConsumerState<CategoryScreen> {
                                           category: category.category![index],
                                         )));
                           },
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Center(
-                                  child: Text(
-                                category.category![index],
-                                style: TextStyles.bodyMedium.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ))),
-                        ),
-                      );
-                    })));
+                          child: Text(data.category![index]));
+                    },
+                  )
+            // : GridView.builder(
+
+            //     gridDelegate:
+            //         const SliverGridDelegateWithFixedCrossAxisCount(
+            //             crossAxisCount: 2,
+            //             childAspectRatio: 0.95,
+            //             crossAxisSpacing: 10,
+            //             mainAxisSpacing: 10),
+            //     itemCount: category.category!.length,
+            //     itemBuilder: (context, index) {
+            //       return Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: InkWell(
+            //           onTap: () {
+            //             ref
+            //                 .read(categoryController.notifier)
+            //                 .state
+            //                 .category = ["mayank", "fdg"];
+            //             // Navigator.push(
+            //             //     context,
+            //             //     MaterialPageRoute(
+            //             //         builder: (context) => ProductsScreen(
+            //             //               category: category.category![index],
+            //             //             )));
+            //           },
+            //           child: Container(
+            //               decoration: BoxDecoration(
+            //                   color: Colors.grey.withOpacity(0.2),
+            //                   borderRadius: BorderRadius.circular(10)),
+            //               child: Center(
+            //                   child: Text(
+            //                 category.category![index],
+            //                 style: TextStyles.bodyMedium.copyWith(
+            //                     color: Colors.black,
+            //                     fontWeight: FontWeight.bold),
+            //               ))),
+            //         ),
+            //       );
+            //     })
+            ));
   }
 }

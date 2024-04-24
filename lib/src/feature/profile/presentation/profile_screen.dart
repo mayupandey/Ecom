@@ -7,6 +7,7 @@ import 'package:ecom/src/feature/profile/presentation/update_info_screen.dart';
 import 'package:ecom/src/routes/Routes.dart';
 import 'package:ecom/src/utils/device_info.dart';
 import 'package:ecom/src/utils/favourites.dart';
+import 'package:fast_contacts/fast_contacts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +137,67 @@ class ProfileScreen extends ConsumerWidget {
                 SizedBox(
                   height: DeviceInfo.responsiveHeight(20),
                 ),
+                Tooltip(
+                  message: "Sdfs",
+                  richMessage: const TextSpan(
+                      text: "Sdfs",
+                      style: TextStyle(color: Colors.black, fontSize: 20)),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: const Offset(
+                                0, 1), // changes position of shadow
+                          ),
+                        ]),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          onTap: () async {
+                            final contacts =
+                                await FastContacts.getAllContacts();
+                            log(contacts.toString());
+                          },
+                          title: const Text("Favourites",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.black,
+                                  fontSize: 18)),
+                        ),
+                        ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const UpdateUserInfoForm()));
+                          },
+                          leading: const Text("Update Profile",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.black,
+                                  fontSize: 18)),
+                          trailing: const Icon(Icons.policy),
+                        ),
+                        const Divider(),
+                        ListTile(
+                          onTap: () {
+                            context.push('/${Routes.passwordReset}');
+                          },
+                          leading: const Text("Reset Password",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.black,
+                                  fontSize: 18)),
+                          trailing: const Icon(Icons.security),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -151,6 +213,17 @@ class ProfileScreen extends ConsumerWidget {
                       ]),
                   child: Column(
                     children: [
+                      ListTile(
+                        onTap: () async {
+                          final contacts = await FastContacts.getAllContacts();
+                          log(contacts.toString());
+                        },
+                        title: const Text("Favourites",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black,
+                                fontSize: 18)),
+                      ),
                       ListTile(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(

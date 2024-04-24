@@ -1,9 +1,12 @@
-import 'dart:developer';
+import 'dart:async';
+import 'dart:math';
+
 import 'dart:ui';
+import 'package:ecom/const/resource.dart';
 import 'package:ecom/src/common_widget/loader.dart';
 import 'package:ecom/src/common_widget/password_reset.dart';
 import 'package:ecom/src/common_widget/stadium_button.dart';
-import 'package:ecom/src/constant/app_assets.dart';
+
 import 'package:ecom/src/constant/app_colors.dart';
 import 'package:ecom/src/constant/app_strings.dart';
 import 'package:ecom/src/feature/authentication/controller/authentication_controller.dart';
@@ -17,7 +20,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fortune_wheel_enhanced/flutter_fortune_wheel.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -30,7 +35,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  StreamController<int> controller = StreamController<int>();
   bool obsecure = true;
   @override
   Widget build(BuildContext context) {
@@ -53,6 +58,34 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              SizedBox(
+                height: 200,
+                child: FortuneWheelEnhanced(
+                  onAnimationEnd: () {
+                    buildShowDialog(context);
+                  },
+                  // changing the return animation when the user stops dragging
+                  physics: CircularPanPhysics(
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.decelerate,
+                  ),
+                  onFling: () {
+                    // controller.add(3);
+
+                    var rand = Random().nextInt(3);
+                    print(rand);
+                    controller.add(rand);
+                  },
+                  selected: controller.stream,
+                  items: [
+                    FortuneItem(
+                        child: Lottie.asset(
+                            AppAssets.ASSETS_LOTTIE_VOUCHERANIMATION_JSON)),
+                    const FortuneItem(child: Text('Yoda')),
+                    const FortuneItem(child: Text('Obi-Wan Kenobi')),
+                  ],
+                ),
+              ),
               SizedBox(height: size.height * 0.03),
               const Text(
                 "Hello Again!",
@@ -126,7 +159,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             if (value.item1) {
                               context.pop();
                               // navigator.pop();
-                              log("success");
+                              // log("success");
                             } else {
                               context.pop();
                               ScaffoldMessenger.of(context).showSnackBar(
