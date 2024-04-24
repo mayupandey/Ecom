@@ -32,7 +32,8 @@ class ProductRepository {
       {required String limit, required String skip}) async {
     try {
       final res = await _dio.dio.get(Endpoints.fetchCategoriesEndpoint);
-      return jsonDecode(res.data);
+      log(res.data.toString(), name: "ProductRepository");
+      return res.data;
     } catch (e) {
       rethrow;
     }

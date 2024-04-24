@@ -43,10 +43,10 @@ class HomeController extends StateNotifier<HomeState> {
 }
 
 final homeProvider = StateNotifierProvider<HomeController, HomeState>((ref) {
-  ref.onDispose(() {
-    print("Home Provider Disposed");
-    HomeState().productList = null;
-  });
+  // ref.onDispose(() {
+  //   print("Home Provider Disposed");
+  //   HomeState().productList = null;
+  // });
 
   return HomeController();
 });

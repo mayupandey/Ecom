@@ -1,9 +1,11 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:ecom/src/feature/category/presentation/category_screen.dart';
 import 'package:ecom/src/feature/favourites/presentation/favourite_screen.dart';
 import 'package:ecom/src/feature/home/presentation/home_screen.dart';
 import 'package:ecom/src/feature/profile/presentation/profile_screen.dart';
 import 'package:ecom/src/utils/device_info.dart';
 import 'package:ecom/src/utils/internetStatusChecker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -26,8 +28,9 @@ class _NavigationScreenState extends State<NavigationScreen>
 
   var pages = {
     '0': const HomeScreen(),
-    '1': const FavouriteScreen(),
-    '2': ProfileScreen()
+    '1': const CategoryScreen(),
+    '2': const FavouriteScreen(),
+    '3': ProfileScreen()
   };
   void pageChanged(int index) {
     setState(() {
@@ -71,6 +74,9 @@ class _NavigationScreenState extends State<NavigationScreen>
         items: [
           CustomNavigationBarItem(
             icon: const Icon(Icons.home_outlined),
+          ),
+          CustomNavigationBarItem(
+            icon: const Icon(Icons.category_outlined),
           ),
           CustomNavigationBarItem(
             icon: const Icon(Icons.favorite_border_outlined),
